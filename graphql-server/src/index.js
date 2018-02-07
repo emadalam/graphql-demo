@@ -37,7 +37,7 @@ const subscriptionServer = SubscriptionServer.create(
 // initialize WebSocket server
 appWS.listen( WS_PORT, HOSTNAME, () =>
 {
-    console.log( `subscription server started at ` )
+    console.log( `subscription server started at ${subscriptionsEndpoint}` );
 } );
 
 const app = new koa();
