@@ -1,5 +1,5 @@
 .block {
-    display: block;
+    display: block !important;
 }
 
 .reveal section img.center-white-img {
@@ -11,4 +11,27 @@
     max-width: 50%;
     max-height: 50%;
     padding: 12px;
+}
+
+.slides .footer-left {
+    position: absolute;
+    bottom: -250%;
+    left: 0%;
+    text-align: left;
+}
+
+.slides .footer-right {
+    position: absolute;
+    bottom: -250%;
+    right: 0%;
+    text-align: left;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
 }
