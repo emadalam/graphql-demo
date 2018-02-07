@@ -1,0 +1,9 @@
+type Subscription {
+
+    # Subscribe to newly added movies
+    movieAdded: Movie!
+
+    # Subscribe to newly added casts
+    castAdded: Cast!
+
+}

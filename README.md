@@ -1,4 +1,5 @@
 # graphql-demo
+
 A demo [GraphQL](http://graphql.org/) application server.
 
 ### Getting Started
@@ -12,7 +13,12 @@ $ npm start                             # Starts GraphQL app server
 ```
 
 ### GraphiQL Interface
+
 Once the server has been started the [GraphiQL](https://github.com/graphql/graphiql) interface can be accessed at http://127.0.0.1:3001/graphiql to play around with the server.
+
+### Subscription Server
+
+The subscription server is available over websocket and can be accessed at ws://127.0.0.1:5000/ to subscribe for real time updates. Please refer to the generated schema docs to check for the available subscriptions.
 
 ### Development
 
