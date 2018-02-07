@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>RIP REST... Welcome GraphQL</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/dracula.css">
+
+		<!-- Custom styles -->
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<!-- Title Slide -->
+				<section>
+					<h2>
+						RIP <i>REST</i>...<br/>
+						Welcome <i>GraphQL</i>
+					</h2>
+				</section>
+
+				<!-- Intro Slide -->
+				<section>
+					<h4>What???</h4>
+					<div class="fragment">
+						<p>Current challenges in <i>REST</i></p>
+						<p>What is <i>GraphQL</i>?</p>
+						<p>Example and deep dive</p>
+						<p>Q&amp;A</p>
+					</div>
+				</section>
+
+				<!-- Current challenges in REST -->
+				<section>
+					<h4>Current challenges in <i>REST</i></h4>
+					<aside class="notes">
+						- Nothing wrong with REST as such<br>
+						- Perfectly valid solution to API centric architecture<br>
+						- SOAP, Proprietary SDKs
+						- World has changed since 2007 and so are the needs<br>
+						- Shortcomings of REST hampers productivity, performance and maintainability<br><br>
+
+						Mobile<br>
+						- Latency overhead over radio communication is more<br>
+						- Single HTTP request takes 1 second, which according to UX standards is the max, thus the maximum number of HTTP requests a mobile can make is 1<br>
+						- Number of HTTP requests is directly proportional to battery life<br><br>
+
+						Clients<br>
+						- Define endpoints for each of the resources<br>
+						- Increased number of requests<br><br>
+
+						Standards<br>
+						- REST is not a standard<br>
+						- Architectural style with a set of loose principles<br>
+						- Build your custom client or tweak an available customizable client<br>
+						- Spend time trying to decide what falvour of REST to build, eg HATEOS<br><br>
+
+						Resource Discovery<br>
+						- No standard documentation, no schema<br>
+						- Data discovery and finding a contract is painful<br><br>
+
+						Bloated Responses<br>
+						- Agile development results in bloated responses<br>
+						- Either do API versioning or send the adhoc data in the same resource<br>
+						- Example: Twitter API has more than 30 fields for a tweet resource which might never be used<br><br>
+
+						CRUD Only<br>
+						- Mostly tied to CRUD operations over HTTP verbs<br>
+						- What about the real time response?<br>
+						- Websockets and HTTP/2 solves the protocol problem but what about data exchange format<br><br>
+
+						Solutions<br>
+						- HTTP/2 for request multiplexing<br>
+						- Batch endpoints for multiple resources<br>
+						- Sparse field selector<br>
+						- Schemas with Open API Specifications<br>
+						- API documentation tools like Swagger<br>
+					</aside>
+					<ul>
+						<li class="fragment">Most of the Internet is now <b>Mobile</b></li>
+						<li class="fragment">Makes clients <b>slow</b> by default</li>
+						<li class="fragment">Batch endpoint, data inclusion, request grouping etc is neither REST<i>ful</i> nor straightforward to implement</li>
+						<li class="fragment">No standards mean too many standards</li>
+						<li class="fragment">Resource discovery is painful</li>
+						<li class="fragment">Bloated responses</li>
+						<li class="fragment">CRUD only</li>
+					</ul>
+				</section>
+
+				<!-- What is GraphQL -->
+				<section>
+					<section>
+						<h4>What is GraphQL?</h4>
+						<ul>
+							<li class="fragment">is <b>NOT</b> a query language for any Database</li>
+							<li class="fragment">is <b>NOT</b> a library or a framework</li>
+							<li class="fragment">is <b>NOT</b> a transport protocol</li>							
+							<li class="fragment">is a specification</li>
+							<li class="fragment">provides rules for schema definitions, type system and parsing</li>
+							<li class="fragment">gives structure for data query and mutations</li>
+							<li class="fragment">is language agnostic</li>
+						</ul>
+						<br><br>
+						<p class="fragment">
+							<a href="#" class="navigate-down enabled">
+								<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+							</a>
+						</p>
+					</section>
+					<section>
+						<p>in a nutshell</p>
+						<img class="stretch" src="img/graphql-in-a-nutshell.png">
+						<br><br>
+						<a href="#" class="navigate-down enabled">
+							<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+						</a>
+					</section>
+					<section>
+						<p>schema example</p>
+						<pre>
+							<code class="graphql">
+type MyEntity {
+    id: ID!
+    name: String!
+    hasSpecialPower: Boolean,
+    relatedEntities: [OtherEntity!]
+}
+
+type Query {
+    myEntities(limit: Int = 10): [MyEntity!]
+    myEntity(id: ID!): MyEntity
+}
+
+type Mutation {
+    createMyEntity(name: String!): MyEntity
+}
+							</code>
+						</pre>
+						<a href="#" class="navigate-down enabled">
+							<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+						</a>
+					</section>
+					<section>
+						<p>client query/mutation example</p>
+						<pre>
+							<code class="graphql">
+query {
+    myEntities {
+        id
+        name
+        hasSpecialPower
+    }
+
+    myEntity(id: 10) {
+        hasSpecialPower
+    }
+}
+
+mutation {
+    createMyEntity(name: "Awesome GraphQL") {
+        id
+    }
+}
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<h4>Where does it fit?</h4>
+					<section>
+						<p class="fragment">
+							<img class="center-white-img" src="img/graphql-architecture--connected-database.png">
+							<small>with connected database</small>
+							<a href="#" class="navigate-down enabled block">
+								<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+							</a>
+						</p>
+					</section>
+					<section>
+						<img class="center-white-img" src="img/graphql-architecture--layer-existing-systems.png">
+						<small>as a layer for integrating existing systems</small>
+						<br><br>
+						<a href="#" class="navigate-down enabled block">
+							<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+						</a>
+					</section>
+					<section>
+						<img class="center-white-img" src="img/graphql-architecture--hybrid.png">
+						<small>hybrid layer (connected database + existing systems)</small>
+					</section>
+				</section>
+
+				<!-- Example and deep dive -->
+				<section>
+					<h4>Example and deep dive</h4>
+					<aside class="notes">
+						- Show graphql server app demo
+						- Talk about the tooling like graphiql
+						- How it enhances productivity (UX, Frontend devs, API devs)
+					</aside>
+					<a href="https://github.com/emadalam/graphql-demo" target="_blank">https://github.com/emadalam/graphql-demo</a>
+				</section>
+
+				<!-- Q&A -->
+				<section>
+					<h2>Q&amp;A</h2>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{
+						src: 'plugin/highlight/highlight.js',
+						async: true,
+						callback: function() {
+							// graphql syntax highlighting
+							hljs.registerLanguage("graphql",function(e){return{aliases:["gql"],k:{keyword:"query mutation subscription|10 type interface union scalar fragment|10 enum on ...",literal:"true false null"},c:[e.HCM,e.QSM,e.NM,{cN:"type",b:"[^\\w][A-Z][a-z]",e:"\\W",eE:!0},{cN:"literal",b:"[^\\w][A-Z][A-Z]",e:"\\W",eE:!0},{cN:"variable",b:"\\$",e:"\\W",eE:!0},{cN:"keyword",b:"[.]{2}",e:"\\."},{cN:"meta",b:"@",e:"\\W",eE:!0}],i:/([;<']|BEGIN)/}});
+
+							hljs.initHighlightingOnLoad();
+						}
+					},
+					// Zoom in and out with Alt+click
+        			{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+				]
+			});
+
+			// hide cursor on inactivity
+			(function() {
+			    var mouseTimer = null,
+			    	cursorVisible = true;
+
+			    function disappearCursor() {
+			        mouseTimer = null;
+			        document.body.style.cursor = 'none';
+			        cursorVisible = false;
+			    }
+
+			    document.onmousemove = function() {
+			        if (mouseTimer) {
+			            window.clearTimeout(mouseTimer);
+			        }
+			        if (!cursorVisible) {
+			            document.body.style.cursor = 'default';
+			            cursorVisible = true;
+			        }
+			        mouseTimer = window.setTimeout(disappearCursor, 5000);
+			    };
+			})();
+		</script>
+	</body>
+</html>

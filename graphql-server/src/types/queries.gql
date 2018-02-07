@@ -1,0 +1,15 @@
+type Query {
+
+    # List of available movies
+    movies: [Movie!]
+
+    # Get movie by Id
+    movie(id: ID!): Movie
+
+    # List of available casts
+    casts: [Cast!]
+
+    # Get cast by Id
+    cast(id: ID!): Cast
+
+}

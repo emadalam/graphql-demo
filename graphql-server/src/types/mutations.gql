@@ -1,0 +1,20 @@
+# Input to create a movie
+input MovieInput {
+
+    # Name of the movie
+    name: String!
+
+    # year of release
+    year: Int!
+
+}
+
+type Mutation {
+
+    # Create a cast
+    createCast(name: String!): Cast
+
+    # Create a movie
+    createMovie(movie: MovieInput!): Movie
+
+}

@@ -1,0 +1,32 @@
+{
+  "name": "graphql-demo",
+  "version": "1.0.0",
+  "description": "GraphQL Demo",
+  "main": "./graphql-server/src/index.js",
+  "scripts": {
+    "start": "node ./graphql-server/dist/index.js",
+    "build": "rimraf ./graphql-server/dist && babel ./graphql-server/src --out-dir ./graphql-server/dist --copy-files",
+    "dev": "nodemon ./graphql-server/src/index.js --ext js,gql --watch ./graphql-server/src --exec 'babel-node --inspect=1234'",
+    "presentation": "http-server ./presentation -p 8515 -a 127.0.0.1"
+  },
+  "author": "Emad Alam",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "apollo-server-koa": "^1.2.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "dotenv": "^4.0.0",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.10.0",
+    "http-server": "^0.11.1",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.3.0",
+    "merge-graphql-schemas": "^1.4.0",
+    "nodemon": "^1.14.0",
+    "rimraf": "^2.6.2"
+  }
+}

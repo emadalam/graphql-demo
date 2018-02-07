@@ -1,0 +1,16 @@
+# Defines the movie type
+type Movie {
+
+    # Id of the movie
+    id: ID!
+
+    # Name of the movie
+    name: String!
+
+    # Casts associated with the movie
+    cast: [Cast!]
+
+    # Year of release
+    year: Int
+
+}
