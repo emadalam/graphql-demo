@@ -142,14 +142,15 @@ type MyEntity {
     hasSpecialPower: Boolean,
     relatedEntities: [OtherEntity!]
 }
-
 type Query {
     myEntities(limit: Int = 10): [MyEntity!]
     myEntity(id: ID!): MyEntity
 }
-
 type Mutation {
     createMyEntity(name: String!): MyEntity
+}
+type Subscription {
+    entityCreated: MyEntity!
 }
 							</code>
 						</pre>
@@ -158,7 +159,7 @@ type Mutation {
 						</a>
 					</section>
 					<section>
-						<p>client query/mutation example</p>
+						<p>client query examples</p>
 						<pre>
 							<code class="graphql">
 query {
@@ -172,10 +173,25 @@ query {
         hasSpecialPower
     }
 }
-
+							</code>
+						</pre>
+						<a href="#" class="navigate-down enabled">
+							<img width="44.5" height="59.5" alt="Down arrow" src="img/arrow.png">
+						</a>
+					</section>
+					<section>
+						<p>client mutation and subscription examples</p>
+						<pre>
+							<code class="graphql">
 mutation {
     createMyEntity(name: "Awesome GraphQL") {
         id
+    }
+}
+
+subscription {
+    entityCreated {
+        name
     }
 }
 							</code>
